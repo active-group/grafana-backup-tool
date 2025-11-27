@@ -12,6 +12,9 @@ def health_check(grafana_url, http_get_headers, verify_ssl, client_cert, debug):
     return send_grafana_get(url, http_get_headers, verify_ssl, client_cert, debug)
 
 
+# endpoint is removed with grafana v12.3
+# https://grafana.com/docs/grafana/latest/whatsnew/whats-new-in-v12-3/
+# https://grafana.com/docs/grafana/latest/administration/service-accounts/migrate-api-keys/#steps-1
 def auth_check(grafana_url, http_get_headers, verify_ssl, client_cert, debug):
     url = '{0}/api/auth/keys'.format(grafana_url)
     print("\n[Pre-Check] grafana auth check: {0}".format(url))
