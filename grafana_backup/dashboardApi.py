@@ -211,6 +211,9 @@ def get_alert_rule(uid, grafana_url, http_get_headers, verify_ssl, client_cert, 
 
 
 def create_alert_rule(alert, grafana_url, http_get_headers, verify_ssl, client_cert, debug):
+    # TODO: this is a quickfix to make resources editable via the grafana-gui; cleanup/concept needed
+    # https://grafana.com/docs/grafana/v12.0/developers/http_api/alerting_provisioning/#edit-resources-in-the-grafana-ui
+    http_get_headers.update({'X-Disable-Provenance':'true'})
     url = '{0}/api/v1/provisioning/alert-rules'.format(grafana_url)
     return send_grafana_post(url, alert, http_get_headers, verify_ssl, client_cert, debug)
 
@@ -489,6 +492,9 @@ def search_notification_policies(grafana_url, http_get_headers, verify_ssl, clie
 
 
 def update_notification_policy(json_palyload, grafana_url, http_post_headers, verify_ssl, client_cert, debug):
+    # TODO: this is a quickfix to make resources editable via the grafana-gui; cleanup/concept needed
+    # https://grafana.com/docs/grafana/v12.0/developers/http_api/alerting_provisioning/#edit-resources-in-the-grafana-ui
+    http_post_headers.update({'X-Disable-Provenance':'true'})
     return send_grafana_put('{0}/api/v1/provisioning/policies'.format(grafana_url), json_palyload, http_post_headers, verify_ssl, client_cert, debug)
 
 
