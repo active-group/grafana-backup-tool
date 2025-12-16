@@ -224,6 +224,11 @@ def delete_alert_rule(uid, grafana_url, http_get_headers, verify_ssl, client_cer
 
 
 def update_alert_rule(uid, alert, grafana_url, http_get_headers, verify_ssl, client_cert, debug):
+    # TODO: this is a quickfix to make resources editable via the grafana-gui; cleanup/concept needed
+    # https://grafana.com/docs/grafana/v12.0/developers/http_api/alerting_provisioning/#edit-resources-in-the-grafana-ui
+    # works also for updates, as documented here:
+    # https://grafana.com/docs/grafana/v12.0/developers/http_api/alerting_provisioning/#update-an-existing-alert-rule-routeputalertrule
+    http_get_headers.update({'X-Disable-Provenance':'true'})
     url = '{0}/api/v1/provisioning/alert-rules/{1}'.format(grafana_url, uid)
     return send_grafana_put(url, alert, http_get_headers, verify_ssl, client_cert, debug)
 
